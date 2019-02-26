@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo8--为一个类添加局部状态</title>
+	<script src="https://cdn.bootcss.com/react/16.2.0/umd/react.development.js"></script>
+	<script src="https://cdn.bootcss.com/react-dom/16.2.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.js"></script>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			padding-top: 100px;
+			text-align: center;
+		}
+
+		.greeting {
+			font-family: "Microsoft YaHei";
+			font-size: 30px;
+			color: #999;
+			text-align: center;
+			font-weight: inherit;
+		}
+
+		img {
+			width: 200px;
+			height: 200px;
+		}
+	</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+	//为一个类添加局部状态
+	//类定义组件
+	//1.在 render() 方法中使用 this.state.date 替代 this.props.date
+	class Clock extends React.Component {
+
+		//2.添加一个类构造函数来初始化状态 this.state
+		constructor(props) {
+			super(props);
+			this.state = {
+				date: new Date(),
+				name:'李四'
+			};
+		}
+		render() {
+			return (
+				<div>
+					<h1>Hello, {this.state.name}!</h1>
+					<h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+				</div>
+			);
+		}
+		//生命周期函数
+		//组件已经装载
+		componentDidMount() {
+			this.timerID = setInterval(
+				() => this.tick(),
+				1000
+			);
+		}
+		//组件即将卸载
+		componentWillUnmount() {
+			clearInterval(this.timerID);
+		}
+		//其他函数
+		tick() {
+
+			//直接更新状态
+			// this.setState({
+			// 	date: new Date(),
+			// 	name:new Date().toLocaleTimeString()
+			// });
+
+			//带有参数的更新
+			//prevState 为上一状态 props为传递的属性值
+			this.setState(function (prevState, props) {
+				return {
+					date: new Date(),
+					name:props.name
+				}
+			});
+
+			//带有箭头函数的参数更新
+			// this.setState((prevState, props)=>{
+				    //counter: prevState.counter + props.increment
+			// });
+		}
+	}
+	//3.从 <Clock /> 元素移除 date 属性
+	ReactDOM.render(
+		<Clock name="hahaha" />,
+		document.getElementById('root')
+	);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo7--函数定义组件转化成类定义组件</title>
+	<script src="https://cdn.bootcss.com/react/16.2.0/umd/react.development.js"></script>
+	<script src="https://cdn.bootcss.com/react-dom/16.2.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.js"></script>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			padding-top: 100px;
+			text-align: center;
+		}
+
+		.greeting {
+			font-family: "Microsoft YaHei";
+			font-size: 30px;
+			color: #999;
+			text-align: center;
+			font-weight: inherit;
+		}
+
+		img {
+			width: 200px;
+			height: 200px;
+		}
+	</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+	//函数定义组件转化成类定义组件
+	//1.创建一个名称扩展为 React.Component 的ES6 类
+	//2.创建一个叫做render()的空方法
+	//3.将函数体移动到 render() 方法中
+	//4.在 render() 方法中，使用 this.props 替换 props
+	//5.删除剩余的空函数声明
+	//函数定义组件
+	function functionComponent(props) {
+		return (<div className="greeting">Hello <strong>{props.name}</strong></div>);
+	}
+
+	//类定义组件
+	class FunctionComponentTransform extends React.Component {
+		render() {
+			return (
+				<div className="greeting">Hello <strong>{this.props.name}</strong></div>
+			);
+		}
+	}
+
+	ReactDOM.render(
+		<FunctionComponentTransform name="functionComponentTransform"/>,
+		document.getElementById('root')
+	);
+</script>
+
+</body>
+</html>

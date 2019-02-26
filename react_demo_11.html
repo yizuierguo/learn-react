@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>demo11--React事件处理</title>
+	<script src="https://cdn.bootcss.com/react/16.2.0/umd/react.development.js"></script>
+	<script src="https://cdn.bootcss.com/react-dom/16.2.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.js"></script>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			padding-top: 100px;
+			text-align: center;
+		}
+
+		.greeting {
+			font-family: "Microsoft YaHei";
+			font-size: 30px;
+			color: #999;
+			text-align: center;
+			font-weight: inherit;
+		}
+
+		img {
+			width: 200px;
+			height: 200px;
+		}
+		.btn {
+			line-height: 1.499;
+			position: relative;
+			display: inline-block;
+			font-weight: 400;
+			white-space: nowrap;
+			text-align: center;
+			background-image: none;
+			border: 1px solid transparent;
+			-webkit-box-shadow: 0 2px 0 rgba(0,0,0,0.015);
+			box-shadow: 0 2px 0 rgba(0,0,0,0.015);
+			cursor: pointer;
+			-webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
+			transition: all .3s cubic-bezier(.645, .045, .355, 1);
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			height: 32px;
+			padding: 0 15px;
+			font-size: 14px;
+			border-radius: 4px;
+			color: rgba(0,0,0,0.65);
+			background-color: #fff;
+			border-color: #d9d9d9;
+			outline: 0;
+		}
+	</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+	class Toggle extends React.Component {
+		constructor(props) {
+			super(props);
+			//初始化state
+			this.state = {
+				isToggleOn: true
+			};
+			// This binding is necessary to make `this` work in the callback
+			//
+			// this.handleClick = this.handleClick.bind(this);
+		}
+		//属性初始化器
+		// handleClick = (e) => {
+		// 	console.log('this is:', this);
+		// 	e.preventDefault();
+		// 	this.setState(prevState => ({
+		// 		isToggleOn: !prevState.isToggleOn
+		// 	}));
+		// }
+		handleClick(e) {
+			e.preventDefault();
+			console.log(this);           //如果不bind(this) 这里的this指向window对象 否则指向组件实例本身
+			this.setState(prevState => ({
+				isToggleOn: !prevState.isToggleOn
+			}));
+		}
+
+		/**<a className="btn" onClick={this.handleClick}>**/
+		render() {
+			return (
+				<a className="btn" onClick={(e) => this.handleClick(e)}>
+					{this.state.isToggleOn ? 'ON' : 'OFF'}
+				</a>
+			);
+		}
+	}
+
+	ReactDOM.render(
+		<Toggle/>,
+		document.getElementById('root')
+	);
+</script>
+
+</body>
+</html>

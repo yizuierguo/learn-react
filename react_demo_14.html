@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>demo14--列表渲染</title>
+	<script src="https://cdn.bootcss.com/react/16.2.0/umd/react.development.js"></script>
+	<script src="https://cdn.bootcss.com/react-dom/16.2.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.js"></script>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			padding-top: 100px;
+			text-align: center;
+		}
+
+		.greeting {
+			font-family: "Microsoft YaHei";
+			font-size: 30px;
+			color: #999;
+			text-align: center;
+			font-weight: inherit;
+		}
+
+		img {
+			width: 200px;
+			height: 200px;
+		}
+
+		.btn {
+			line-height: 1.499;
+			position: relative;
+			display: inline-block;
+			font-weight: 400;
+			white-space: nowrap;
+			text-align: center;
+			background-image: none;
+			border: 1px solid transparent;
+			-webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+			box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+			cursor: pointer;
+			-webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
+			transition: all .3s cubic-bezier(.645, .045, .355, 1);
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			height: 32px;
+			padding: 0 15px;
+			font-size: 14px;
+			border-radius: 4px;
+			color: rgba(0, 0, 0, 0.65);
+			background-color: #fff;
+			border-color: #d9d9d9;
+			outline: 0;
+		}
+
+		.warning {
+			background-color: red;
+			text-align: center;
+			width: 100%;
+			padding: 10px;
+			font-size: 14pt;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+	//数组映射
+	const arr1 = [1, 2, 3, 4, 5];
+	const arr2 = arr1.map((i) => i * 2);
+	console.log(arr2);
+
+	//渲染列表
+	function NumberList(props) {
+		const numbers = props.numbers;
+		const listItems = numbers.map((i,index) =>
+			<li key={index}>
+				<img src={i.avatar}/><p>{i.name}</p>
+			</li>
+		);
+		return (
+			<ul>{listItems}</ul>
+		);
+	}
+
+	const numbers = [
+		{
+			name:'react',
+			avatar: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K'
+		},
+		{
+			name:'vue',
+			avatar:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551075887765&di=2e24a77cbc63e7ef1c8c33e77e28da6f&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180410%2Fa1e2c3fbb70a41bf811a682c65dee992.png'
+		}
+
+	];
+	ReactDOM.render(
+		<NumberList numbers={numbers}/>,
+		document.getElementById('root')
+	);
+</script>
+
+</body>
+</html>

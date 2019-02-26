@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo2--React.createElement渲染一个元素</title>
+	<script src="https://cdn.bootcss.com/react/16.2.0/umd/react.development.js"></script>
+	<script src="https://cdn.bootcss.com/react-dom/16.2.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.js"></script>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			padding-top: 100px;
+			text-align: center;
+		}
+
+		.greeting {
+			font-family: "Microsoft YaHei";
+			font-size: 30px;
+			color: #999;
+			text-align: center;
+			font-weight: inherit;
+		}
+
+		img {
+			width: 200px;
+			height: 200px;
+		}
+	</style>
+</head>
+<body>
+<div id="root1"></div>
+<div id="root2"></div>
+<div id="root3"></div>
+<div id="root4"></div>
+
+<script type="text/babel">
+	//使用React.createElement渲染一个元素 渲染到页面中
+	//1 最基本
+	const element1 = (
+		<h1 className="greeting">
+			Hello, world1!
+		</h1>
+	);
+	//2 带有属性
+	const element2 = React.createElement(
+		'h1',
+		{
+			className: 'greeting',
+			children: 'Hello, world2!'
+		}
+	);
+	//3  模版字符串
+	const user = 'world3!';
+	const element3 = React.createElement(
+		"h1",
+		{className: "greeting"},
+		"Hello, " + `${user}`
+	);
+	//4 数组循环
+	const arr = ['Adams', 'Bill', 'Charlie'];
+	const Arr = () => {
+		return arr.map((item, index) => {
+			return <p key={index}>{item}</p>
+		})
+	}
+	ReactDOM.render(element1, document.getElementById('root1'));
+	ReactDOM.render(element2, document.getElementById('root2'));
+	ReactDOM.render(element3, document.getElementById('root3'));
+	ReactDOM.render(<Arr/>, document.getElementById('root4'));
+</script>
+
+</body>
+</html>
